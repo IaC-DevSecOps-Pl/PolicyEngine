@@ -194,17 +194,83 @@ def role_hierarchy_required(required_role):
 
 # In app.py, replace the entire has_permission function with this:
 
-def has_permission(action, policy=None, **kwargs):
+@app.context_processor
+def inject_permissions():
+    """Makes the has_permission function available in all templates."""
+    def has_permission(action, policy=None):
+        user_role = session.get('role', 'Viewer')
+        user_level = ROLES.get(user_role, 0)
+        user_id = session.get('user_id')
+
+        # Rule 1: Admins can do anything, except self-approve.
+        if user_role == 'Admin':
+            if action == 'approve_policy' and policy and policy.get('created_by_id') == user_id:
+                return False
+            return True
+
+        # Rule 2: Handle actions that depend on the policy's state and owner.
+        if action in ['edit_policy', 'delete_policy']:
+            is_own_modifiable = policy and policy.get('created_by_id') == user_id and policy.get('status') in ['draft', 'rejected']
+            if user_role == 'Policy_Creator' and is_own_modifiable:
+                return True
+            if user_level >= ROLES['Policy_Approver'] and policy and policy.get('status') != 'enabled':
+                return True
+            return False
+
+        # Rule 3: Handle simple actions based on the role hierarchy.
+        required_level = {
+            'view_policies': ROLES['Viewer'], 'create_policy': ROLES['Policy_Creator'],
+            'approve_policy': ROLES['Policy_Approver'], 'enable_disable_policy': ROLES['Policy_Approver'],
+            'archive_policy': ROLES['Policy_Approver'], 'manage_users': ROLES['Admin'],
+            'view_admin_panel': ROLES['Admin'], 'view_audit_log': ROLES['Admin'],
+            'download_policies_report': ROLES['Policy_Approver']
+        }.get(action)
+
+        if required_level is None:
+            return False
+
+        # For approval, non-admins cannot self-approve.
+        if action == 'approve_policy':
+            if policy and policy.get('created_by_id') == user_id:
+                return False
+            return user_level >= required_level
+
+        return user_level >= required_level
+
+    return dict(has_permission=has_permission, ROLES=ROLES)
+
+# Find the block starting with this line...
+# --- INITIALIZE DATA VIA REPOSITORY (Works for both CSV and Azure) ---
+# In app.py, replace your @app.context_processor with these two blocks.
+
+# 1. Define has_permission as a regular function so other routes can see it.
+def has_permission(action, policy=None):
     """
     Checks if the current user has permission for a given action.
-    Accepts **kwargs to ignore legacy arguments like 'category' from templates.
+    This function handles both general role-based permissions and specific,
+    object-level permissions (e.g., cannot approve one's own policy).
     """
     user_role = session.get('role', 'Viewer')
     user_level = ROLES.get(user_role, 0)
     user_id = session.get('user_id')
 
-    # Define the minimum role level required for general actions
-    required_levels = {
+    # Rule 1: Admins can do anything, except self-approve.
+    if user_role == 'Admin':
+        if action == 'approve_policy' and policy and policy.get('created_by_id') == user_id:
+            return False
+        return True
+
+    # Rule 2: Handle complex actions that depend on the policy's state and owner.
+    if action in ['edit_policy', 'delete_policy']:
+        is_own_modifiable = policy and policy.get('created_by_id') == user_id and policy.get('status') in ['draft', 'rejected']
+        if user_role == 'Policy_Creator' and is_own_modifiable:
+            return True
+        if user_level >= ROLES['Policy_Approver'] and policy and policy.get('status') != 'enabled':
+            return True
+        return False
+
+    # Rule 3: Handle simple actions based on the role hierarchy.
+    required_level = {
         'view_policies': ROLES['Viewer'],
         'create_policy': ROLES['Policy_Creator'],
         'approve_policy': ROLES['Policy_Approver'],
@@ -213,68 +279,25 @@ def has_permission(action, policy=None, **kwargs):
         'manage_users': ROLES['Admin'],
         'view_admin_panel': ROLES['Admin'],
         'view_audit_log': ROLES['Admin'],
-        # --- THIS LINE WAS MISSING ---
         'download_policies_report': ROLES['Policy_Approver']
-    }
+    }.get(action)
 
-    required_level = required_levels.get(action)
-    can_act = False
+    if required_level is None:
+        return False
 
-    # Check if user's role level is high enough for the general action
-    if required_level and user_level >= required_level:
-        can_act = True
+    # For approval, non-admins cannot self-approve.
+    if action == 'approve_policy':
+        if policy and policy.get('created_by_id') == user_id:
+            return False
+        return user_level >= required_level
 
-    # Grant specific permissions for lower-level roles
-    is_modifiable = policy and policy.get('created_by_id') == user_id and policy.get('status') in ['draft', 'rejected']
-    if action in ['edit_policy', 'delete_policy'] and user_role == 'Policy_Creator' and is_modifiable:
-        can_act = True
+    return user_level >= required_level
 
-    # Apply special blocking rules (these override permissions)
-    if action == 'approve_policy' and policy and policy.get('created_by_id') == user_id:
-        can_act = False
-
-    return can_act
-
-# This line is usually right below the has_permission function definition.
-app.jinja_env.globals['has_permission'] = has_permission
-
-# Find the block starting with this line...
-# --- INITIALIZE DATA VIA REPOSITORY (Works for both CSV and Azure) ---
-with app.app_context():
-    # Check if there are any users. If not, create the default admin.
-    if not repo.get_all_users():
-        print("--- No users found. Creating default admin user... ---")
-        admin_password_hash = generate_password_hash(os.getenv('ADMIN_PASSWORD', 'adminpass'))
-        admin_user = {
-            'id': str(uuid.uuid4()),
-            'username': 'admin',
-            'password': admin_password_hash,
-            'email': 'admin@example.com',
-            'global_role': 'Admin',
-            'category_roles': [] # The repository will handle serializing this list
-        }
-        repo.save_user(admin_user)
-        logging.info("Initialized data with default admin user.")
-
-    # Check if there are any categories. If not, create defaults.
-    if not repo.get_all_categories():
-        print("--- No categories found. Creating default categories... ---")
-        default_categories = [
-            {'category': 'General', 'logged_fields': {}},
-            {'category': 'Security', 'logged_fields': {"image_name": "imageName", "critical_vulns": "vulnerabilities.critical"}},
-            {'category': 'Compliance', 'logged_fields': {}}
-        ]
-        repo.save_all_categories(default_categories)
-        logging.info("Initialized data with default categories.")
-
-    # Check for other lookups like Groups and Operators
-    # Note: These still use the simple read_lookup_list helper, so their file creation is separate
-    if not os.path.exists(app.config['OPERATOR_FILE']):
-        write_lookup_list(app.config['OPERATOR_FILE'], 'operator', ['equals', 'in', 'not in', 'like', 'greater_than', 'less_than'])
-        logging.info("Initialized operators.csv with default data.")
-
-app.jinja_env.globals['has_permission'] = has_permission
-
+# 2. Use the context processor to make the global function available to templates.
+@app.context_processor
+def inject_permissions():
+    """Makes has_permission and ROLES available in all templates."""
+    return dict(has_permission=has_permission, ROLES=ROLES)
 
 # --- Routes ---
 
@@ -1090,4 +1113,4 @@ def dashboard():
                            top_approvers=top_approvers)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
