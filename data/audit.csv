@@ -1,0 +1,245 @@
+timestamp,username,action,entity_type,entity_id,description
+2025-06-11T16:45:03.918518,admin,logout,User,64918c34-662c-43ef-8467-5edcd2ca6abd,User logged out.
+2025-06-11T16:45:10.438647,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T16:45:54.109831,admin,add,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,"User ""creator"" added."
+2025-06-11T16:46:39.816684,admin,add,User,89f2b78a-ac73-4e24-9071-38049557b8b8,"User ""creator1"" added."
+2025-06-11T16:47:44.966388,admin,add,User,9daeb427-baa3-470d-997a-b9b3e091ad02,"User ""viewer"" added."
+2025-06-11T16:48:19.081196,admin,add,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,"User ""approver"" added."
+2025-06-11T16:48:27.084103,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T16:48:35.492090,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T16:48:55.675114,creator,created,policy,a3d27f36-7b5a-4649-a2a7-3c3a75047787,Policy 'Test Policy' created as draft.
+2025-06-11T16:49:16.220281,creator,created,policy,3bcc73c0-ecd9-4a5c-b229-0a08c270648f,Policy 'Test Policy' created as draft.
+2025-06-11T16:50:00.418501,creator,created,policy,cb386491-20f7-4e9d-860a-381c43f8e607,Policy 'Test Policy 2' created as draft.
+2025-06-11T16:50:14.550168,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T16:50:21.681811,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T16:50:54.588145,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T16:51:02.622445,creator1,login,User,89f2b78a-ac73-4e24-9071-38049557b8b8,User logged in successfully.
+2025-06-11T16:51:31.236527,creator1,created,policy,a51a2745-7883-4709-8fc9-e3328311fa2e,Policy 'Test Policy 3' created as draft.
+2025-06-11T16:51:49.274496,creator1,created,policy,b39f272c-0389-478b-8727-27288e407eec,Policy 'Test Policy 4' created as draft.
+2025-06-11T16:57:41.703217,creator1,logout,User,89f2b78a-ac73-4e24-9071-38049557b8b8,User logged out.
+2025-06-11T16:57:51.202291,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T16:57:59.449112,approver,updated,policy,a3d27f36-7b5a-4649-a2a7-3c3a75047787,Policy '' updated.
+2025-06-11T16:57:59.449807,approver,approve_and_enable,Policy,a3d27f36-7b5a-4649-a2a7-3c3a75047787,"Policy ""Test Policy"" was approved and enabled."
+2025-06-11T16:58:13.547192,approver,updated,policy,3bcc73c0-ecd9-4a5c-b229-0a08c270648f,Policy '' updated.
+2025-06-11T16:58:21.388323,approver,updated,policy,cb386491-20f7-4e9d-860a-381c43f8e607,Policy '' updated.
+2025-06-11T16:58:21.389059,approver,approve_and_enable,Policy,cb386491-20f7-4e9d-860a-381c43f8e607,"Policy ""Test Policy 2"" was approved and enabled."
+2025-06-11T16:58:23.589983,approver,updated,policy,a51a2745-7883-4709-8fc9-e3328311fa2e,Policy '' updated.
+2025-06-11T16:58:23.595699,approver,approve_and_enable,Policy,a51a2745-7883-4709-8fc9-e3328311fa2e,"Policy ""Test Policy 3"" was approved and enabled."
+2025-06-11T16:58:24.438368,approver,updated,policy,a51a2745-7883-4709-8fc9-e3328311fa2e,Policy '' updated.
+2025-06-11T16:58:28.289692,approver,updated,policy,b39f272c-0389-478b-8727-27288e407eec,Policy '' updated.
+2025-06-11T16:58:28.290305,approver,approve_and_enable,Policy,b39f272c-0389-478b-8727-27288e407eec,"Policy ""Test Policy 4"" was approved and enabled."
+2025-06-11T16:58:49.307672,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T16:58:57.285676,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T17:13:12.754964,admin,created,policy,d178bfe4-2ea7-4851-aee6-6300bacf6366,Policy 'Test Policy' created as draft.
+2025-06-11T17:13:49.538700,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T17:13:56.684385,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T17:14:15.071865,creator,created,policy,dc3f2757-a23d-4005-a67a-493c2fbaccfc,Policy 'Test Policy' created as draft.
+2025-06-11T17:14:34.992828,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T17:14:40.655613,admin,login_failed,User,N/A,Failed login attempt.
+2025-06-11T17:14:46.333383,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T17:15:36.195004,admin,add,User,cce4339e-834f-451c-b66a-3f922d147b52,"User ""creator2"" added."
+2025-06-11T17:17:20.309464,admin,updated,policy,a3d27f36-7b5a-4649-a2a7-3c3a75047787,Policy '' updated.
+2025-06-11T17:17:25.007140,admin,updated,policy,a3d27f36-7b5a-4649-a2a7-3c3a75047787,Policy '' updated.
+2025-06-11T17:17:29.941933,admin,updated,policy,dc3f2757-a23d-4005-a67a-493c2fbaccfc,Policy '' updated.
+2025-06-11T17:17:29.942683,admin,approve_and_enable,Policy,dc3f2757-a23d-4005-a67a-493c2fbaccfc,"Policy ""Test Policy"" was approved and enabled."
+2025-06-11T17:19:56.804918,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T17:20:09.786203,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T17:20:39.422597,admin,add,Group,5e133a58-d421-499e-9a3a-7d18bcabb038,"Group ""InfraAsCode"" added."
+2025-06-11T17:20:46.962197,admin,add,Group,ef913e05-d6e7-4318-8749-867dcc6823c5,"Group ""CyberSecurity"" added."
+2025-06-11T17:20:57.534082,admin,add,Group,96c9d44e-cbd1-4e85-9db9-ad66966a2bab,"Group ""AutomationGovernance"" added."
+2025-06-11T17:21:00.965600,admin,add,Group,172c4bb3-e4cd-46bf-80ed-d3f5fceb09b8,"Group ""RPA"" added."
+2025-06-11T17:24:06.868498,admin,delete,Group,96c9d44e-cbd1-4e85-9db9-ad66966a2bab,"Group ""AutomationGovernance"" deleted."
+2025-06-11T17:24:32.451550,admin,created,policy,a8a6324e-8b69-4c26-a163-2dc67b108951,Policy 'Test Policy' created as draft.
+2025-06-11T17:28:01.480820,admin,created,policy,98a94eae-4795-47d7-8282-0e8e1d9101e6,Policy 'Test Policy' created as draft.
+2025-06-11T17:44:11.656904,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T17:44:17.415951,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T17:44:39.730253,creator,created,policy,b3f94474-3a09-4bf8-b632-8003136bab41,Policy 'Test Policy' created as draft.
+2025-06-11T17:49:22.809995,creator,created,policy,23fec293-f39e-4a98-b09b-bc9dd6099694,Policy 'Test Policy' created as draft.
+2025-06-11T17:55:35.214613,creator,created,policy,518070de-6a08-4d45-8caf-149b13673e7e,Policy 'Test Policy' created.
+2025-06-11T17:56:18.395996,creator,created,policy,14c19e98-e0cd-43cd-9fca-e9ceaf83b0c3,Policy 'Test Policy' created.
+2025-06-11T17:58:20.315014,creator,created,policy,7b956882-35cb-4578-812d-b631fbfb07f2,Policy 'Test Policy' created.
+2025-06-11T18:00:54.852050,creator,created,policy,adc23721-0560-4914-9685-6e73b674ab70,Policy 'Test Policy' created.
+2025-06-11T18:01:36.478391,creator,created,policy,4c5e2785-6c00-4e6b-b3c1-b3d721a0bdc5,Policy 'Test Policy 2' created.
+2025-06-11T18:08:21.905490,creator,created,policy,82df1c26-0e42-469a-a16c-c9b27793285d,Policy 'Test Policy 4' created.
+2025-06-11T18:58:39.617751,creator,created,policy,a345839e-c639-4d02-a57b-3ac1aee8acac,Policy 'Test Policy' created.
+2025-06-11T18:58:56.036315,creator,created,policy,6bf63b03-a1d7-44e2-b62d-10ddd4b32975,Policy 'Test Policy 2' created.
+2025-06-11T20:37:41.394529,creator,created,policy,62b01c19-ba11-425d-ad6a-90d0134e0111,Policy 'Test Policy' created.
+2025-06-11T20:37:59.335161,creator,created,policy,f24083bd-13f9-480d-bcfe-9d7021a7dbef,Policy 'Test Policy 2' created.
+2025-06-11T20:40:33.553214,creator,created,policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,Policy 'Test Policy' created.
+2025-06-11T20:42:39.467641,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T20:42:49.244560,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T20:43:31.274012,creator,created,policy,a0539b92-174c-4aa9-8007-53d70ca03b93,Policy 'Test Policy 2' created.
+2025-06-11T20:44:05.753993,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T20:44:13.217000,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T20:44:17.879416,approver,updated,policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,Policy '' updated.
+2025-06-11T20:44:17.880336,approver,approve_and_enable,Policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,"Policy ""Test Policy"" was approved and enabled."
+2025-06-11T20:44:27.379034,approver,updated,policy,a0539b92-174c-4aa9-8007-53d70ca03b93,Policy '' updated.
+2025-06-11T20:44:32.409368,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T20:44:41.124550,admin,login_failed,User,N/A,Failed login attempt.
+2025-06-11T20:44:47.888849,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T21:41:40.169387,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T21:41:46.980405,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T21:42:13.792391,creator,updated,policy,a0539b92-174c-4aa9-8007-53d70ca03b93,Policy 'Test Policy 2' updated.
+2025-06-11T21:42:19.154701,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T21:42:26.030207,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T21:42:41.448793,approver,updated,policy,a0539b92-174c-4aa9-8007-53d70ca03b93,Policy '' updated.
+2025-06-11T21:42:45.252448,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T21:42:51.477517,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T21:42:59.676914,creator,delete,Policy,a0539b92-174c-4aa9-8007-53d70ca03b93,"Policy ""Test Policy 2"" deleted."
+2025-06-11T21:52:48.777170,creator,created,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy 'Test Policy 2' created.
+2025-06-11T21:52:50.971465,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T21:52:58.427663,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T21:53:12.803108,approver,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-11T21:53:14.008014,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T21:53:21.448289,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T21:53:37.013132,creator,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy 'Test Policy 2' updated.
+2025-06-11T21:53:38.877171,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T21:53:49.875614,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T21:53:52.549692,approver,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-11T21:53:52.550227,approver,approve_and_enable,Policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,"Policy ""Test Policy 2"" was approved and enabled."
+2025-06-11T21:53:54.592539,approver,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-11T21:54:01.119001,approver,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-11T23:03:23.100557,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T23:03:33.683550,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T23:04:00.114151,creator,created,policy,6ae799e4-ae40-4046-bcdc-5e42910bd0f5,Policy 'Test Policy 3' created.
+2025-06-11T23:04:07.027797,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T23:04:20.683449,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T23:04:34.959274,approver,updated,policy,6ae799e4-ae40-4046-bcdc-5e42910bd0f5,Policy '' updated.
+2025-06-11T23:04:36.452519,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T23:04:42.878558,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-11T23:05:05.375684,creator,delete,Policy,6ae799e4-ae40-4046-bcdc-5e42910bd0f5,"Policy ""Test Policy 3"" deleted."
+2025-06-11T23:05:22.750762,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-11T23:05:28.104427,admin,login_failed,User,N/A,Failed login attempt.
+2025-06-11T23:05:34.337261,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T23:12:14.231100,admin,download,Report,policies_report,Policies report downloaded.
+2025-06-11T23:33:38.325128,admin,add,Category,Test,"Category ""Test"" added."
+2025-06-11T23:33:41.073322,admin,delete,Category,Test,"Category ""Test"" deleted."
+2025-06-11T23:34:01.190132,admin,delete,Group,172c4bb3-e4cd-46bf-80ed-d3f5fceb09b8,"Group ""RPA"" deleted."
+2025-06-11T23:48:06.424115,admin,delete,User,89f2b78a-ac73-4e24-9071-38049557b8b8,"User ""creator1"" deleted."
+2025-06-11T23:49:34.997277,admin,add,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,"User ""testuser"" added."
+2025-06-11T23:50:12.923514,admin,add,User,e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,"User ""Vcreator"" added."
+2025-06-11T23:50:17.661298,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T23:50:32.125527,Vcreator,login,User,e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,User logged in successfully.
+2025-06-11T23:51:49.676449,Vcreator,created,policy,b4e26b01-2356-4de8-b647-5d6b3c0e1316,Policy 'Test Policy 5' created.
+2025-06-11T23:51:53.411467,Vcreator,logout,User,e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,User logged out.
+2025-06-11T23:52:03.061625,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-11T23:52:09.786964,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-11T23:52:16.267536,admin,login_failed,User,N/A,Failed login attempt.
+2025-06-11T23:52:24.118356,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T23:52:43.019060,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T23:52:50.417769,testuser,login,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged in successfully.
+2025-06-11T23:52:54.810695,testuser,updated,policy,b4e26b01-2356-4de8-b647-5d6b3c0e1316,Policy '' updated.
+2025-06-11T23:52:54.813810,testuser,approve_and_enable,Policy,b4e26b01-2356-4de8-b647-5d6b3c0e1316,"Policy ""Test Policy 5"" was approved and enabled."
+2025-06-11T23:53:08.078003,testuser,logout,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged out.
+2025-06-11T23:53:16.159618,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-11T23:59:40.497447,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-11T23:59:47.124780,testuser,login,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged in successfully.
+2025-06-11T23:59:52.483759,testuser,logout,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged out.
+2025-06-11T23:59:57.827488,admin,login_failed,User,N/A,Failed login attempt.
+2025-06-12T00:00:03.791765,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-12T00:00:49.729758,admin,add,User,7e6e74c4-82a3-4fdc-bb94-06f58ff8bfa1,"User ""GViewer"" added."
+2025-06-12T00:00:52.508737,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-12T00:01:01.179187,GViewer,login,User,7e6e74c4-82a3-4fdc-bb94-06f58ff8bfa1,User logged in successfully.
+2025-06-12T00:01:07.475778,GViewer,logout,User,7e6e74c4-82a3-4fdc-bb94-06f58ff8bfa1,User logged out.
+2025-06-12T00:01:18.445981,Vcreator,login,User,e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,User logged in successfully.
+2025-06-12T00:01:46.760684,Vcreator,created,policy,7105bbb5-3944-4934-8f95-5169b1306a96,Policy 'Test Policy 6' created.
+2025-06-12T00:01:50.542413,Vcreator,logout,User,e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,User logged out.
+2025-06-12T00:01:58.350468,testuser,login,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged in successfully.
+2025-06-12T00:02:05.422883,testuser,logout,User,f18dd8ec-3652-4bdd-b668-cb041f1814fd,User logged out.
+2025-06-12T00:02:13.198081,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-12T00:02:17.903840,approver,updated,policy,7105bbb5-3944-4934-8f95-5169b1306a96,Policy '' updated.
+2025-06-12T00:39:34.096488,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-12T00:39:42.535004,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-12T00:40:07.849933,creator,created,policy,eb58c9e6-8a32-4be0-9592-c98a7c628a4c,Policy 'Test Policy 9' created.
+2025-06-12T00:41:48.592769,creator,created,policy,a3034fa7-2697-4eca-85ba-7915bfa8b6f9,Policy 'testpol10' created.
+2025-06-12T00:42:40.815475,creator,created,policy,b298c602-f45a-4b25-a6a1-e7eb90063b79,Policy 'testpol12' created.
+2025-06-12T00:57:33.047556,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-12T00:57:39.380278,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-12T00:58:25.374526,admin,add,User,9eae44b7-fab2-4878-b0e0-e49c92d17821,"User ""testinguser"" added."
+2025-06-12T00:58:56.282645,admin,updated,policy,eb58c9e6-8a32-4be0-9592-c98a7c628a4c,Policy '' updated.
+2025-06-12T00:59:18.352494,admin,updated,policy,a3034fa7-2697-4eca-85ba-7915bfa8b6f9,Policy '' updated.
+2025-06-12T00:59:32.658039,admin,updated,policy,b298c602-f45a-4b25-a6a1-e7eb90063b79,Policy '' updated.
+2025-06-12T01:15:03.427479,admin,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-12T01:15:07.733959,admin,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-12T01:15:09.988778,admin,updated,policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,Policy '' updated.
+2025-06-12T01:15:24.685726,admin,updated,policy,eb58c9e6-8a32-4be0-9592-c98a7c628a4c,Policy '' updated.
+2025-06-12T01:15:28.089741,admin,updated,policy,b298c602-f45a-4b25-a6a1-e7eb90063b79,Policy '' updated.
+2025-06-12T01:16:20.351910,admin,updated,policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,Policy '' updated.
+2025-06-12T01:17:19.164355,admin,updated,policy,4fcc17a5-2231-474d-a369-5a3ef595bfeb,Policy '' updated.
+2025-06-12T01:18:09.576494,admin,add,Operator,>,"Operator "">"" added."
+2025-06-12T01:18:12.344709,admin,add,Operator,<,"Operator ""<"" added."
+2025-06-12T01:18:49.402878,admin,created,policy,0f8f7a89-b27c-4c85-bcc2-a221f18314dc,Policy 'tpol24' created.
+2025-06-12T01:18:59.129260,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-12T01:19:05.287585,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-12T01:19:09.809647,approver,updated,policy,0f8f7a89-b27c-4c85-bcc2-a221f18314dc,Policy '' updated.
+2025-06-12T01:19:15.470406,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-12T01:19:23.044530,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-12T01:43:53.801258,admin,add,Operator,=,"Operator ""="" added."
+2025-06-12T01:43:57.088150,admin,add,Operator,<=,"Operator ""<="" added."
+2025-06-12T01:44:05.695608,admin,add,Operator,>=,"Operator "">="" added."
+2025-06-12T01:44:11.576757,admin,add,Operator,!=,"Operator ""!="" added."
+2025-06-12T01:44:30.632787,admin,updated,policy,c297b2c6-31fe-496a-88bf-b37905f8be3a,Policy '' updated.
+2025-06-12T01:44:31.729093,admin,updated,policy,b4e26b01-2356-4de8-b647-5d6b3c0e1316,Policy '' updated.
+2025-06-12T01:44:32.530349,admin,updated,policy,7105bbb5-3944-4934-8f95-5169b1306a96,Policy '' updated.
+2025-06-12T01:44:36.727864,admin,updated,policy,0f8f7a89-b27c-4c85-bcc2-a221f18314dc,Policy '' updated.
+2025-06-12T01:56:38.311609,admin,created,policy,3d3bb38f-a1b5-462d-b0f7-24d4fed5dd37,Policy 'tp1' created.
+2025-06-12T02:00:28.236659,admin,created,policy,377deab9-9f76-471f-8020-26d8f413f464,Policy 'tp1' created.
+2025-06-12T02:01:21.350797,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-12T02:01:28.802163,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-12T02:01:31.576612,approver,updated,policy,377deab9-9f76-471f-8020-26d8f413f464,Policy '' updated.
+2025-06-12T02:01:34.343206,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-12T02:01:40.761400,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-12T10:08:22.862809,admin,created,policy,e2828edf-d23c-43fb-a7ec-0a78e70222c8,Policy 'tp2' created.
+2025-06-12T13:05:03.187973,admin,add,Category,testCategory,"Category ""testCategory"" added."
+2025-06-12T13:05:10.125639,admin,delete,Category,testCategory,"Category ""testCategory"" deleted."
+2025-06-12T13:06:26.356242,admin,created,policy,04ce79b5-b1f4-499c-9710-b0d4a91d3d25,Policy 'tp3' created.
+2025-06-12T13:06:31.054744,admin,updated,policy,377deab9-9f76-471f-8020-26d8f413f464,Policy '' updated.
+2025-06-12T13:06:32.475771,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-12T13:06:40.943980,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-12T13:06:43.009729,approver,updated,policy,e2828edf-d23c-43fb-a7ec-0a78e70222c8,Policy '' updated.
+2025-06-12T13:06:47.117858,approver,updated,policy,04ce79b5-b1f4-499c-9710-b0d4a91d3d25,Policy '' updated.
+2025-06-12T13:06:49.307048,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-12T13:06:56.855396,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-12T20:45:12.771264,admin,add,Category,TestPolicy,"Category ""TestPolicy"" added."
+2025-06-12T20:46:58.302614,admin,delete,Category,TestPolicy,"Category ""TestPolicy"" deleted."
+2025-06-12T23:39:33.684504,admin,created,policy,a6eb1408-c4ec-4711-a80f-49343c32b6ec,Policy 'tp1' created.
+2025-06-12T23:48:57.024127,admin,download,Report,policies_report,Policies report downloaded.
+2025-06-13T00:21:05.736042,admin,add,Operator,!!,"Operator ""!!"" added."
+2025-06-13T00:21:09.153230,admin,delete,Operator,!!,"Operator ""!!"" deleted."
+2025-06-13T00:21:36.388957,admin,add,Category,test,"Category ""test"" added."
+2025-06-13T00:28:29.073160,admin,delete,Category,test,"Category ""test"" deleted."
+2025-06-13T00:29:00.593793,admin,add,User,160870d7-f751-4a5a-8760-21be3b74a1b4,"User ""testuser1"" added."
+2025-06-13T00:29:21.470408,admin,edit,User,160870d7-f751-4a5a-8760-21be3b74a1b4,"User ""testuser1"" updated."
+2025-06-13T00:29:28.096125,admin,delete,User,160870d7-f751-4a5a-8760-21be3b74a1b4,"User ""testuser1"" deleted."
+2025-06-13T00:32:53.048870,admin,add,Group,fe85e191-54e3-45e3-9333-7fa22dcdac00,"Group ""testgroup"" added."
+2025-06-13T00:33:01.740090,admin,delete,Group,fe85e191-54e3-45e3-9333-7fa22dcdac00,"Group ""testgroup"" deleted."
+2025-06-13T00:35:19.925521,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-13T00:35:29.129222,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.
+2025-06-13T00:35:46.821314,admin,logout,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged out.
+2025-06-13T00:35:54.119767,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-13T00:35:57.192777,approver,updated,policy,a6eb1408-c4ec-4711-a80f-49343c32b6ec,Policy '' updated.
+2025-06-13T00:36:00.777119,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-13T00:36:08.112408,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-13T00:36:50.129138,creator,created,policy,6101bc49-76ab-4f09-8982-0a71b826fdf7,Policy 'tp2' created.
+2025-06-13T00:37:09.300984,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-13T00:37:16.288395,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-13T00:37:46.410110,approver,updated,policy,6101bc49-76ab-4f09-8982-0a71b826fdf7,Policy '' updated.
+2025-06-13T00:37:49.087161,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-13T00:37:54.646430,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-13T00:38:25.832111,creator,updated,policy,6101bc49-76ab-4f09-8982-0a71b826fdf7,Policy 'tp2' updated.
+2025-06-13T00:38:33.085555,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-13T00:38:40.295918,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-13T00:38:43.039687,approver,updated,policy,6101bc49-76ab-4f09-8982-0a71b826fdf7,Policy '' updated.
+2025-06-13T00:42:06.385968,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-13T00:42:12.263892,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-13T00:42:45.338619,creator,created,policy,580806a8-c60f-4061-a7e8-2c67ce5f0c5a,Policy 'tpl3' created.
+2025-06-13T00:42:47.881277,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-13T00:42:54.179417,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-13T00:43:10.016165,approver,updated,policy,580806a8-c60f-4061-a7e8-2c67ce5f0c5a,Policy '' updated.
+2025-06-13T00:43:11.318695,approver,logout,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged out.
+2025-06-13T00:43:16.828925,creator,login,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged in successfully.
+2025-06-13T00:49:37.087144,creator,updated,policy,580806a8-c60f-4061-a7e8-2c67ce5f0c5a,Policy 'tpl3' updated.
+2025-06-13T00:49:46.051320,creator,logout,User,d61c1edd-ce76-448d-9a76-2ab54acbb974,User logged out.
+2025-06-13T00:49:51.828453,approver,login,User,f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,User logged in successfully.
+2025-06-13T00:49:54.730895,approver,updated,policy,580806a8-c60f-4061-a7e8-2c67ce5f0c5a,Policy '' updated.
+2025-06-13T09:44:41.471263,admin,login,User,dcd29fae-dc93-4c09-983d-6399d495216c,User logged in successfully.

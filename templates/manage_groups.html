@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% block title %}Manage Groups{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Manage Groups</h2>
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back to Admin Panel</a>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for group in groups %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ group.name }}</strong><br>
+                            <small class="text-muted">{{ group.get('description', 'No description') }}</small>
+                        </div>
+                        <div class="btn-group">
+                            <a href="{{ url_for('edit_group', group_id=group.id) }}" class="btn btn-sm btn-info">Edit</a>
+                            <form action="{{ url_for('delete_group_route', group_id=group.id) }}" method="POST" style="display: inline-block;">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item">No groups found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Add New Group</div>
+            <div class="card-body">
+                <form action="{{ url_for('add_group') }}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Group Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" name="description">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Group</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

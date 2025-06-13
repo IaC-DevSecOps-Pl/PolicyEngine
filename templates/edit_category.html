@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}Edit Category{% endblock %}
+{% block content %}
+<h2>Edit Category: {{ category.category }}</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST">
+            <div class="form-group">
+                <label>Category Name</label>
+                <input type="text" class="form-control" value="{{ category.category }}" readonly>
+                <small class="form-text text-muted">Category name cannot be changed.</small>
+            </div>
+            <div class="form-group">
+                <label for="logged_fields">Fields to Log (in JSON format)</label>
+                <textarea class="form-control" name="logged_fields" rows="8">{{ (category.logged_fields or {})|tojson(indent=2) }}</textarea>
+            </div>
+            <div class="alert alert-info mt-2" style="font-size: 0.9em;">
+                <h6 class="alert-heading">Formatting Guide</h6>
+                <p class="mb-1">The content must be valid JSON. This means all keys (the names on the left) must be enclosed in **double quotes**.</p>
+                <hr>
+                <p class="mb-1"><strong>Example:</strong></p>
+                <pre class="mb-0"><code>{
+              "log_column_name": "path.to.payload.field",
+              "another_column": "another.path"
+            }</code></pre>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{{ url_for('manage_categories') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

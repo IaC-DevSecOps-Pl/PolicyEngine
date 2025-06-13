@@ -1,0 +1,40 @@
+{
+    "report_generated_at": "2025-06-05 00:37:16",
+    "generated_by": "admin",
+    "policies": [
+        {
+            "id": "2ee52be5-1c14-4003-a57f-a1e6861b5c0e",
+            "name": "Test Policy",
+            "category": "Container Security",
+            "field": "vulnerabilities",
+            "operator": "equals",
+            "values": "low, med, high",
+            "groups": [
+                "Cyber Security"
+            ],
+            "status": "enabled"
+        },
+        {
+            "id": "203ec155-577b-4be4-98e3-4007252c3b64",
+            "name": "Test Policy 2",
+            "category": "Container Security",
+            "field": "vulnerabilities",
+            "operator": "equals",
+            "values": "low, med, high",
+            "groups": [
+                "Cyber Security"
+            ],
+            "status": "enabled"
+        },
+        {
+            "id": "26e17488-985c-4ef8-abc3-8b8915a8b9c5",
+            "name": "Test Policy 3",
+            "category": "Container Security",
+            "field": "vulnerabilities",
+            "operator": "equals",
+            "values": "low, med, high",
+            "groups": [],
+            "status": "archived"
+        }
+    ]
+}

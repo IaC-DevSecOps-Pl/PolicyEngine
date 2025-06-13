@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block title %}Policy Simulator{% endblock %}
+{% block content %}
+<h2>Policy Simulator</h2>
+<p>Test your policies by providing a sample data payload and the context (Group, Category, and Status) it should be evaluated against.</p>
+
+<form method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="payload">Data Payload (JSON)</label>
+                <textarea class="form-control" name="payload" id="payload" rows="20" required>{{ payload }}</textarea>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="group">Test against Group:</label>
+                <select name="group" id="group" class="form-control">
+                    <option value="">-- All Groups --</option>
+                    {% for group in groups %}
+                    <option value="{{ group }}" {% if group == selected_group %}selected{% endif %}>{{ group }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+             <div class="form-group">
+                <label for="category">Test against Category:</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">-- All Categories --</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="statuses">Test against Status(es):</label>
+                <select name="statuses" id="statuses" class="form-control" multiple required>
+                    <option value="pending_approval" {% if 'pending_approval' in selected_statuses %}selected{% endif %}>Pending Approval</option>
+                    <option value="enabled" {% if 'enabled' in selected_statuses %}selected{% endif %}>Enabled</option>
+                    <option value="disabled" {% if 'disabled' in selected_statuses %}selected{% endif %}>Disabled</option>
+                </select>
+                <small class="form-text text-muted">Hold Ctrl/Cmd to select multiple statuses.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Run Simulation</button>
+            <hr>
+
+            <div class="form-group">
+                <label>Results:</label>
+                <pre class="bg-light p-3 rounded" style="max-height: 400px; overflow-y: auto;"><code>{{ results if results else 'Run a simulation to see results.' }}</code></pre>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

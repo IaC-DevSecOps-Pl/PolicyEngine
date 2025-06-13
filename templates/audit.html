@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block title %}Audit Log{% endblock %}
+{% block content %}
+<h2>Audit Log</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>Action</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in audit_logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.user }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.description }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No audit logs found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

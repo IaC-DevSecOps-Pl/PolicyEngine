@@ -1,0 +1,278 @@
+{% extends 'layout.html' %}
+<style>
+    .policy-inactive {
+        opacity: 0.6;
+        background-color: #f8f9fa; /* A light grey background */
+    }
+    .policy-inactive:hover {
+        opacity: 1.0;
+    }
+</style>
+{% block title %}Policies{% endblock %}
+{% block content %}
+<h2>Policies</h2>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <input type="text" id="searchInput" class="form-control" onkeyup="filterPolicies()" placeholder="Search policies by name...">
+    </div>
+    <div class="col-md-3">
+        <select id="categoryFilter" class="form-control" onchange="filterPolicies()">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select id="statusFilter" class="form-control" onchange="filterPolicies()">
+            <option value="">All Statuses</option>
+            <option value="enabled">Enabled</option>
+            <option value="pending_approval">Pending Approval</option>
+            <option value="disabled">Disabled</option>
+            <option value="rejected">Rejected</option>
+            <option value="approved">Approved</option>
+            <option value="archived">Archived</option>
+        </select>
+    </div>
+</div>
+
+<div class="mb-3">
+    {% if has_permission('create_policy') %}
+    <a href="{{ url_for('new_policy') }}" class="btn btn-primary">Create New Policy</a>
+    {% endif %}
+    <a href="{{ url_for('download_policies_report') }}" class="btn btn-secondary">Download Report</a>
+</div>
+
+<table class="table table-striped" id="policyTable">
+    <thead>
+        <tr>
+          <th onclick="sortTable(0)">Policy Name</th>
+          <th onclick="sortTable(1)">Category</th>
+          <th>Rule</th>
+          <th onclick="sortTable(3)">Status</th>
+          <th onclick="sortTable(4)">Created By</th>
+          <th onclick="sortTable(5)">Created Date</th>
+          <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for policy in policies %}
+        <tr class="{% if policy.status in ['archived', 'rejected'] %}policy-inactive{% endif %}">
+            <td>{{ policy.name }}</td>
+            <td>{{ policy.category }}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-secondary view-rule-btn"
+                        data-toggle="modal"
+                        data-target="#ruleDetailModal"
+                        data-policy-id="{{ policy.id }}">
+                    View Rule
+                </button>
+                <div id="rule-content-{{ policy.id }}" style="display: none;">
+                    <pre>{{ policy.get('rule_definition') | prettyjson }}</pre>
+                </div>
+            </td>
+            <td>{{ policy.status }}</td>
+            <td>{{ policy.created_by }}</td>
+            <td>{{ policy.created_date | format_datetime }}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Policy Actions">
+
+                    {% if has_permission('edit_policy', policy=policy) %}
+                        <a href="{{ url_for('edit_policy', policy_id=policy.id) }}" class="btn btn-sm btn-info">Edit</a>
+                    {% endif %}
+
+                    {% if has_permission('delete_policy', policy=policy) %}
+                        <form action="{{ url_for('delete_policy_route', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</button>
+                        </form>
+                    {% endif %}
+
+                    {% if policy.status == 'disabled' and has_permission('enable_disable_policy', policy=policy) %}
+                        <form action="{{ url_for('enable_policy', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-success">Enable</button>
+                        </form>
+                    {% elif policy.status == 'enabled' and has_permission('enable_disable_policy', policy=policy) %}
+                        <form action="{{ url_for('disable_policy', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-warning">Disable</button>
+                        </form>
+                    {% endif %}
+
+                    {% if policy.status in ['approved', 'enabled', 'disabled'] and has_permission('archive_policy', policy=policy) %}
+                        <form action="{{ url_for('archive_policy', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-secondary">Archive</button>
+                        </form>
+                    {% elif policy.status == 'archived' and has_permission('archive_policy', policy=policy) %}
+                        <form action="{{ url_for('unarchive_policy', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-info">Unarchive</button>
+                        </form>
+                    {% endif %}
+
+                    {% if policy.status == 'pending_approval' and has_permission('approve_policy', policy=policy) %}
+                        <form action="{{ url_for('approve_policy', policy_id=policy.id) }}" method="POST" style="display: inline-block;">
+                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                        </form>
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#rejectPolicyModal" data-policy-id="{{ policy.id }}">Reject</button>
+                    {% endif %}
+
+                </div>
+            </td>
+        </tr>
+        {% else %}
+        <tr id="noPoliciesRow"><td colspan="7">No policies found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="modal fade" id="rejectPolicyModal" tabindex="-1" role="dialog" aria-labelledby="rejectPolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectPolicyModalLabel">Reject Policy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="rejectForm" method="POST" action="">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="rejectionReason">Reason for Rejection:</label>
+                        <textarea class="form-control" id="rejectionReason" name="rejection_reason" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Reject Policy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+
+<div class="modal fade" id="ruleDetailModal" tabindex="-1" role="dialog" aria-labelledby="ruleDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ruleDetailModalLabel">Policy Rule Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <pre id="modalRuleContent" class="bg-light p-3 rounded"></pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // This wrapper ensures the code inside only runs after the page,
+    // including the jQuery library, is fully loaded.
+    $(document).ready(function() {
+
+        // This is the essential part that powers the rejection modal.
+        // It now sits inside the ready() function.
+        $('#rejectPolicyModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var policyId = button.data('policy-id');
+            var modal = $(this);
+
+            // This line sets the correct URL on the form before it's submitted
+            var actionUrl = "{{ url_for('reject_policy', policy_id=0) }}".replace('0', policyId);
+            modal.find('#rejectForm').attr('action', actionUrl);
+        });
+        $('#ruleDetailModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var policyId = button.data('policy-id');
+            var modal = $(this);
+
+            // Find the hidden div with the rule content
+            var ruleContentHtml = $('#rule-content-' + policyId).html();
+
+            // Put the content into the modal's body
+            modal.find('#modalRuleContent').html(ruleContentHtml);
+        });
+    });
+
+    // These functions do not depend on jQuery, so they can remain outside.
+    function filterPolicies() {
+        var input = document.getElementById("searchInput");
+        var categoryFilter = document.getElementById("categoryFilter");
+        var statusFilter = document.getElementById("statusFilter");
+        var table = document.getElementById("policyTable");
+        var tr = table.getElementsByTagName("tr");
+        var filterCategory = categoryFilter.value.toUpperCase();
+        var filterStatus = statusFilter.value.toUpperCase();
+        var filterSearch = input.value.toUpperCase();
+        var policiesFound = false;
+
+        for (var i = 1; i < tr.length; i++) {
+            if (tr[i].id === "noPoliciesRow") continue;
+
+            var policyNameCell = tr[i].getElementsByTagName("td")[0];
+            var categoryCell = tr[i].getElementsByTagName("td")[1];
+            var statusCell = tr[i].getElementsByTagName("td")[3];
+
+            if (policyNameCell && categoryCell && statusCell) {
+                var categoryMatch = (filterCategory === "" || categoryCell.textContent.toUpperCase() === filterCategory);
+                var statusMatch = (filterStatus === "" || statusCell.textContent.toUpperCase() === filterStatus);
+                var searchMatch = (filterSearch === "" || policyNameCell.textContent.toUpperCase().indexOf(filterSearch) > -1);
+
+                if (categoryMatch && statusMatch && searchMatch) {
+                    tr[i].style.display = "";
+                    policiesFound = true;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+        var noPoliciesRow = document.getElementById("noPoliciesRow");
+        if(noPoliciesRow) {
+            noPoliciesRow.style.display = policiesFound ? "none" : "";
+        }
+    }
+
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("policyTable");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                if (rows[i].id === "noPoliciesRow" || (rows[i+1] && rows[i+1].id === "noPoliciesRow")) continue;
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

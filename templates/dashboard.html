@@ -1,0 +1,175 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<h4 class="text-muted mb-3">Policy Status Overview</h4>
+<div class="row">
+    <div class="col-lg-7 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Policies by Status</div>
+            <div class="card-body" style="position: relative; height:300px">
+                <canvas id="policyStatusChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Oldest Policies Pending Approval</div>
+            <div class="card-body">
+                {% if stale_policies %}
+                <ul class="list-group list-group-flush">
+                    {% for policy in stale_policies %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ url_for('edit_policy', policy_id=policy.id) }}">{{ policy.name }}</a>
+                        <small class="text-muted">{{ policy.created_date|format_datetime }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No policies are currently pending approval.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="text-muted mt-4 mb-3">Decision Engine Activity</h4>
+<div class="row">
+    <div class="col-lg-7 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Daily Pass vs. Fail Trend</div>
+            <div class="card-body" style="position: relative; height:300px">
+                <canvas id="passFailChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Most Frequently Failed Policies</div>
+            <div class="card-body">
+                {% if top_failed %}
+                <ul class="list-group list-group-flush">
+                    {% for item, count in top_failed %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item }}
+                        <span class="badge badge-danger badge-pill">{{ count }} failures</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No policy failures have been logged yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="text-muted mt-4 mb-3">User & System Health</h4>
+<div class="row">
+    <div class="col-lg-7 mb-4">
+        <div class="card h-100">
+            <div class="card-header">User Role Distribution</div>
+            <div class="card-body" style="position: relative; height:300px">
+                <canvas id="userRolesChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 mb-4">
+        <div class="card h-100">
+            <div class="card-header">Top Policy Approvers</div>
+            <div class="card-body">
+                {% if top_approvers %}
+                <ul class="list-group list-group-flush">
+                    {% for name, count in top_approvers %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ name }}
+                        <span class="badge badge-primary badge-pill">{{ count }} approvals</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No policies have been approved yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Chart 1: Policies by Status (Doughnut) ---
+    const statusCtx = document.getElementById('policyStatusChart');
+    if (statusCtx) {
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ chart_status_labels|tojson|safe }},
+                datasets: [{
+                    label: 'Policies',
+                    data: {{ chart_status_values|tojson|safe }},
+                    backgroundColor: ['#28a745', '#ffc107', '#6c757d', '#dc3545', '#007bff', '#343a40']
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+
+    // --- Chart 2: Pass/Fail Trend (Line) ---
+    const trendCtx = document.getElementById('passFailChart');
+    if (trendCtx) {
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: {{ pass_fail_trend.labels|tojson|safe }},
+                datasets: [
+                    {
+                        label: 'Passes',
+                        data: {{ pass_fail_trend.pass_counts|tojson|safe }},
+                        borderColor: 'rgba(40, 167, 69, 1)',
+                        backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Fails',
+                        data: {{ pass_fail_trend.fail_counts|tojson|safe }},
+                        borderColor: 'rgba(220, 53, 69, 1)',
+                        backgroundColor: 'rgba(220, 53, 69, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+        });
+    }
+
+    // --- Chart 3: User Roles (Bar) ---
+    const rolesCtx = document.getElementById('userRolesChart');
+    if (rolesCtx) {
+        new Chart(rolesCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ chart_roles_labels|tojson|safe }},
+                datasets: [{
+                    label: 'Number of Users',
+                    data: {{ chart_roles_values|tojson|safe }},
+                    backgroundColor: 'rgba(0, 123, 255, 0.7)'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { x: { beginAtZero: true } }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

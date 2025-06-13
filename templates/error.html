@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block title %}Error{% endblock %}
+{% block content %}
+<div class="alert alert-danger" role="alert">
+    <h2>Error</h2>
+    <p>{{ message }}</p>
+    <a href="{{ url_for('policy_list') }}" class="btn btn-secondary">Go back to Policies</a>
+</div>
+{% endblock %}

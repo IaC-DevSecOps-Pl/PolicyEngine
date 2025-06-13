@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block title %}Manage Categories{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Manage Categories</h2>
+    <a href="{{ url_for('admin_panel') }}" class="btn btn-secondary">Back to Admin Panel</a>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Existing Categories</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Category Name</th>
+                                <th>Fields to Log (JSON)</th>
+                                <th style="width: 15%;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cat in categories %}
+                            <tr>
+                                <td>{{ cat.category }}</td>
+                                <td><pre style="margin: 0; font-size: 0.9em;">{{ cat.get('logged_fields')|tojson(indent=2)|safe }}</pre></td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('edit_category', category_name=cat.category) }}" class="btn btn-sm btn-info">Edit</a>
+                                        <form action="{{ url_for('delete_category', name=cat.category) }}" method="POST" style="display: inline-block;">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr><td colspan="3" class="text-center">No categories found.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Add New Category</div>
+            <div class="card-body">
+                <form action="{{ url_for('add_category') }}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Category Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="logged_fields">Fields to Log (JSON format)</label>
+                        <textarea class="form-control" name="logged_fields" rows="5" placeholder='{"image": "imageName"}'></textarea>
+                        <small class="form-text text-muted">Use {} for no extra fields.</small>
+                    </div>
+                    <div class="alert alert-info mt-2" style="font-size: 0.9em;">
+                        <h6 class="alert-heading">Formatting Guide</h6>
+                        <p class="mb-1">The content must be valid JSON. This means all keys (the names on the left) must be enclosed in **double quotes**.</p>
+                        <hr>
+                        <p class="mb-1"><strong>Example:</strong></p>
+                        <pre class="mb-0"><code>{
+                      "log_column_name": "path.to.payload.field",
+                      "another_column": "another.path"
+                    }</code></pre>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Category</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

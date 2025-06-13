@@ -1,0 +1,16 @@
+user_id,category,role
+d61c1edd-ce76-448d-9a76-2ab54acbb974,Security,Policy_Creator
+d61c1edd-ce76-448d-9a76-2ab54acbb974,Compliance,Policy_Creator
+9daeb427-baa3-470d-997a-b9b3e091ad02,General,Viewer
+9daeb427-baa3-470d-997a-b9b3e091ad02,Security,Viewer
+9daeb427-baa3-470d-997a-b9b3e091ad02,Compliance,Viewer
+f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,Security,Policy_Approver
+f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,Compliance,Policy_Approver
+f59f542d-07c4-4b31-8a7f-bcbbdec99aa7,General,Policy_Approver
+cce4339e-834f-451c-b66a-3f922d147b52,Compliance,Policy_Creator
+cce4339e-834f-451c-b66a-3f922d147b52,Security,Viewer
+f18dd8ec-3652-4bdd-b668-cb041f1814fd,Security,Policy_Approver
+f18dd8ec-3652-4bdd-b668-cb041f1814fd,Compliance,Policy_Creator
+e2a08b9c-d6f0-4b81-9230-a8a58e03c44a,General,Policy_Creator
+7e6e74c4-82a3-4fdc-bb94-06f58ff8bfa1,General,Viewer
+9eae44b7-fab2-4878-b0e0-e49c92d17821,General,Viewer

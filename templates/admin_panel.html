@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Admin Panel</h2>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h4><i class="fas fa-users-cog"></i> User Management</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Add new users, edit existing user details, and manage their global and category-specific roles.</p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-right">
+                <a href="{{ url_for('manage_users') }}" class="btn btn-primary">Manage Users</a>
+                <a href="{{ url_for('add_user') }}" class="btn btn-success">Add New User</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h4><i class="fas fa-cogs"></i> Policy Management Lookups</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Manage the predefined values used in policy creation.</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="{{ url_for('manage_categories') }}">Manage Categories</a></li>
+                    <li class="list-group-item"><a href="{{ url_for('manage_operators') }}">Manage Operators</a></li>
+                    <li class="list-group-item"><a href="{{ url_for('manage_groups') }}">Manage Groups</a></li>
+                    <li class="list-group-item"><a href="{{ url_for('simulator') }}"><strong>Policy Simulator</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

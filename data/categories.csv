@@ -1,0 +1,4 @@
+category,logged_fields
+General,"{""image"": ""imageName""}"
+Security,"{""image"": ""imageName"", ""critical_count"": ""vulnerabilities.critical"", ""first_cve"": ""vulnerabilities.0.id""}"
+Compliance,{}

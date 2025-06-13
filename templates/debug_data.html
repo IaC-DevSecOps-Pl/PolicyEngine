@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% block title %}Debug Data{% endblock %}
+
+{% block content %}
+<h2>Data Debug View</h2>
+<p>This page shows the raw data from the CSV files. Check for case-sensitivity issues (e.g., 'creator' vs. 'Policy_Creator') and extra whitespace in the role and category fields.</p>
+
+<hr>
+
+<h3>Users (users.csv)</h3>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Global Role</th>
+            <th>Category Roles (from user record)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in all_users %}
+        <tr>
+            <td><pre>{{ user.get('id') }}</pre></td>
+            <td><pre>{{ user.get('username') }}</pre></td>
+            <td><pre>{{ user.get('global_role') }}</pre></td>
+            <td><pre>{{ user.get('category_roles') }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Category Roles (user_category_roles.csv)</h3>
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Category</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for role in all_roles %}
+        <tr>
+            <td><pre>{{ role.get('user_id') }}</pre></td>
+            <td><pre>{{ role.get('category') }}</pre></td>
+            <td><pre>{{ role.get('role') }}</pre></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

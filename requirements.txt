@@ -1,0 +1,10 @@
+Flask
+Flask-Session
+python-dotenv
+azure-data-tables
+pandas
+uuid
+datetime
+email-validator
+Flask-Mail
+aiosmtpd

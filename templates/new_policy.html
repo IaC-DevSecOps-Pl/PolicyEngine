@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+{% block title %}Create New Policy{% endblock %}
+{% block content %}
+<h2>Create New Policy</h2>
+<form method="POST" id="policy-form">
+    <div class="card mb-3">
+        <div class="card-header">Basic Information</div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Policy Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" name="description" rows="2"></textarea>
+            </div>
+             <div class="form-group">
+                <label>Category</label>
+                <select name="category" class="form-control" required>
+                    {% for cat in categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Apply to Groups</label>
+                <select name="groups" class="form-control" multiple>
+                     {% for group in groups %}<option value="{{ group }}">{{ group }}</option>{% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h4>Policy Rules</h4>
+    <p><small class="text-muted">A policy passes if ANY "OR Group" is satisfied. An "OR Group" is satisfied only if ALL of its "AND Rules" pass.</small></p>
+    <div id="rule-groups-container">
+        </div>
+
+    <input type="hidden" name="rule_definition" id="rule_definition_hidden_input">
+
+    <button type="button" class="btn btn-secondary mt-2" onclick="addRuleGroup()">+ Add Rule Group (OR)</button>
+    <hr>
+    <button type="submit" class="btn btn-primary">Create Policy</button>
+</form>
+
+<script>
+    const operators = {{ operators|tojson }};
+    let groupCounter = 0;
+
+    function addRuleGroup() {
+        const container = document.getElementById('rule-groups-container');
+        const groupIndex = groupCounter++;
+        const groupEl = document.createElement('div');
+        groupEl.className = 'card bg-light mb-3';
+        groupEl.id = `group-${groupIndex}`;
+        groupEl.innerHTML = `
+            <div class="card-header d-flex justify-content-between align-items-center">
+                OR Group #${groupIndex + 1}
+                <button type="button" class="btn btn-sm btn-danger" onclick="this.closest('.card').remove()">Remove Group</button>
+            </div>
+            <div class="card-body">
+                <div class="rules-container">
+                    </div>
+                <button type="button" class="btn btn-sm btn-success mt-2" onclick="addRule(this.closest('.card'))">+ Add Rule (AND)</button>
+            </div>
+        `;
+        container.appendChild(groupEl);
+        addRule(groupEl); // Add the first rule automatically
+    }
+
+    function addRule(groupEl) {
+        const rulesContainer = groupEl.querySelector('.rules-container');
+        const ruleEl = document.createElement('div');
+        ruleEl.className = 'form-row align-items-center mb-2 rule-row';
+
+        let operatorOptions = operators.map(op => `<option value="${op}">${op}</option>`).join('');
+
+        ruleEl.innerHTML = `
+            <div class="col">
+                <input type="text" class="form-control field" placeholder="Field (e.g., vulnerabilities.critical)">
+            </div>
+            <div class="col-md-3">
+                <select class="form-control operator">${operatorOptions}</select>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control value" placeholder="Value">
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.closest('.rule-row').remove()">X</button>
+            </div>
+        `;
+        rulesContainer.appendChild(ruleEl);
+    }
+
+    document.getElementById('policy-form').addEventListener('submit', function(e) {
+        const ruleGroupsData = [];
+        const ruleGroups = document.querySelectorAll('#rule-groups-container .card');
+
+        ruleGroups.forEach(groupEl => {
+            const rulesData = [];
+            const rules = groupEl.querySelectorAll('.rule-row');
+            rules.forEach(ruleEl => {
+                const field = ruleEl.querySelector('.field').value;
+                const operator = ruleEl.querySelector('.operator').value;
+                const value = ruleEl.querySelector('.value').value;
+                if (field && operator && value) {
+                    rulesData.push({ field, operator, value });
+                }
+            });
+            if (rulesData.length > 0) {
+                ruleGroupsData.push({ rules: rulesData });
+            }
+        });
+
+        const finalRuleDef = { rule_groups: ruleGroupsData };
+        document.getElementById('rule_definition_hidden_input').value = JSON.stringify(finalRuleDef);
+    });
+
+    // Start with one rule group when the page loads
+    document.addEventListener('DOMContentLoaded', addRuleGroup);
+</script>
+{% endblock %}

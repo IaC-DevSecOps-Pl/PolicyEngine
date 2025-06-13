@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% block title %}{{ 'Edit' if mode == 'edit' else 'Add' }} User{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ 'Edit User: ' + user.username if mode == 'edit' else 'Add New User' }}</h2>
+    <a href="{{ url_for('manage_users') }}" class="btn btn-secondary">Back to User List</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" value="{{ user.get('username', '') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" {% if mode == 'add' %}required{% endif %}>
+                {% if mode == 'edit' %}<small class="form-text text-muted">Leave blank to keep the current password.</small>{% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.get('email', '') }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="global_role">Global Role</label>
+                <select class="form-control" id="global_role" name="global_role" required>
+                    <option value="">-- Select a Global Role --</option>
+                    {% for role_name in roles %}
+                        <option value="{{ role_name }}" {% if user.global_role == role_name %}selected{% endif %}>
+                            {{ role_name.replace('_', ' ') }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <hr>
+            <h4>Category-Specific Roles</h4>
+            <div id="category-roles-container">
+                </div>
+            <button type="button" class="btn btn-sm btn-secondary mt-2" onclick="addCategoryRoleRow()">+ Add Category Role</button>
+            <hr>
+
+            <button type="submit" class="btn btn-primary">Save User</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const categories = {{ categories|tojson }};
+    const roles = {{ roles|tojson }};
+    const existingRoles = {{ user_category_roles|tojson }};
+    let roleIndex = 0;
+
+    function addCategoryRoleRow(category = '', role = '') {
+        const container = document.getElementById('category-roles-container');
+
+        let categoryOptions = categories.map(cat =>
+            `<option value="${cat}" ${cat === category ? 'selected' : ''}>${cat}</option>`
+        ).join('');
+
+        let roleOptions = Object.keys(roles).map(roleName =>
+            `<option value="${roleName}" ${roleName === role ? 'selected' : ''}>${roleName.replace('_', ' ')}</option>`
+        ).join('');
+
+        const newRow = document.createElement('div');
+        newRow.className = 'form-row mb-2 align-items-end';
+        newRow.innerHTML = `
+            <div class="col">
+                <label>Category</label>
+                <select name="category_role_category_${roleIndex}" class="form-control">
+                    <option value="">-- Select Category --</option>
+                    ${categoryOptions}
+                </select>
+            </div>
+            <div class="col">
+                <label>Role</label>
+                <select name="category_role_role_${roleIndex}" class="form-control">
+                    <option value="">-- Select Role --</option>
+                    ${roleOptions}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-danger" onclick="this.closest('.form-row').remove()">Remove</button>
+            </div>
+        `;
+        container.appendChild(newRow);
+        roleIndex++;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if (existingRoles.length > 0) {
+            existingRoles.forEach(function(role) {
+                addCategoryRoleRow(role.category, role.role);
+            });
+        } else {
+            addCategoryRoleRow();
+        }
+    });
+</script>
+{% endblock %}
