@@ -1,35 +1,5 @@
-curl -X POST -H "Content-Type: application/json" -d '{"context": {"group": "Default Group", "category": "Security", "statuses": ["enabled"]}, "payload": {"vulnerabilities": {"critical": 0, "high": 5, "medium": 10}, "image_name": "my-app:latest"}}' http://127.0.0.1:5000/api/v1/decide
+Windows
+curl -X POST -H "Content-Type: application/json" -d "{\"context\": {\"group\": \"Production\"}, \"payload\": {\"vulnerabilities\": {\"critical\": 0, \"high\": 5}}}" http://127.0.0.1:5000/api/v1/decide
 
-curl -X POST -H "Content-Type: application/json" \
-
--d '{
-
-      "context": {
-
-        "group": "Default Group",
-
-        "category": "Security",
-
-        "statuses": ["enabled"]
-
-      },
-
-      "payload": {
-
-        "vulnerabilities": {
-
-          "critical": 0,
-
-          "high": 5,
-
-          "medium": 10
-
-        },
-
-        "image_name": "my-app:latest"
-
-      }
-
-    }' \
-
-http://127.0.0.1:5000/api/v1/decide
+Linux
+curl -X POST -H "Content-Type: application/json" -d '{"context": {"group": "Production"}, "payload": {"vulnerabilities": {"critical": 0, "high": 5}}}' http://127.0.0.1:5000/api/v1/decide
